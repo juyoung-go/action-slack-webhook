@@ -21443,6 +21443,9 @@ const slackMessage = __nccwpck_require__(579)
 
 const {MESSAGE_TYPES, messageCreator} = __nccwpck_require__(6132)
 
+console.log('MESSAGE_TYPES', MESSAGE_TYPES)
+console.log('messageCreator', messageCreator)
+
 (async ()=>{
 
   try{
