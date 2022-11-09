@@ -17,7 +17,7 @@ const prMessageCreator = async ()=>{
 
   //pr body content
   const content = prInfo.body
-  content && content.length > 0 && (msg += `\n\n${content}`)
+  content && content.length > 0 && (msg += "\n\n```"+content+"```")
 
   //pr link
   msg += `\n\n<${prInfo.html_url}>`
