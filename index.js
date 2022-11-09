@@ -32,7 +32,7 @@ const main = async ()=>{
     let message = await messageCreator(messageType)
     
     //send message
-    await slackMessage({message, mention, extraMessage})
+    await slackMessage({markdownMessage:message, mention, extraMessage})
   
     //set result
     core.setOutput('sendResult', 'OK')
