@@ -1,7 +1,7 @@
 const pr = require('./pull-request')
 const MESSAGE_TYPES = ['pr'];
 
-const messageCreator = (type)=>{
+const messageCreator = async (type)=>{
   if(type === 'pr'){
     return pr()
   }else{

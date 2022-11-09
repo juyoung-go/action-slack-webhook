@@ -7,7 +7,7 @@
 const pr = __nccwpck_require__(2496)
 const MESSAGE_TYPES = ['pr'];
 
-const messageCreator = (type)=>{
+const messageCreator = async (type)=>{
   if(type === 'pr'){
     return pr()
   }else{
@@ -27,13 +27,21 @@ module.exports = {
 
 const github = __nccwpck_require__(985);
 
-const prMessageCreator = ()=>{
+const prMessageCreator = async ()=>{
   
+  //octokit
+  const octo = github.getOctokit(process.env.GITHUB_TOKEN)
+
+  //pr info
+  const prInfo = (await octo.rest.pulls.get({
+    pull_number:github.context.payload.pull_request.number
+  })).data
+
   //start
-  let msg = `[*${github.context.repo}*] *${github.context.actor}* 님에 의해 Pull request 가 Open 되었습니다.`
+  let msg = `[*${github.context.repo.repo}*] *${github.context.actor}* 님에 의해 *Pull request* 가 *Open* 되었습니다.`
 
   //pr link
-  msg += `\n> <${github.context.ref}|${github.context.payload.pull_request.body}>`
+  msg += `\n\n> <${prInfo.html_url}|${prInfo.body || prInfo.html_url}>`
 
   //pr comment
   const comment = github.context.payload.comment
@@ -21461,9 +21469,9 @@ const main = async ()=>{
       return
     }
     
-    // if(!process.env.GITHUB_TOKEN){
-    //   core.setFailed(`GITHUB_TOKEN is empty`)
-    // }
+    if(!process.env.GITHUB_TOKEN){
+      core.setFailed(`GITHUB_TOKEN is empty`)
+    }
     if(!process.env.SLACK_WEBHOOK_URL){
       core.setFailed(`SLACK_WEBHOOK_URL is empty`)
     }
@@ -21473,7 +21481,7 @@ const main = async ()=>{
     
     //create message
     let message = extraMessage || ''
-    message += '\n' + messageCreator(messageType)
+    message += '\n' + await messageCreator(messageType)
     
     //send message
     await slackMessage(message, mention)

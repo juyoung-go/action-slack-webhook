@@ -21,9 +21,9 @@ const main = async ()=>{
       return
     }
     
-    // if(!process.env.GITHUB_TOKEN){
-    //   core.setFailed(`GITHUB_TOKEN is empty`)
-    // }
+    if(!process.env.GITHUB_TOKEN){
+      core.setFailed(`GITHUB_TOKEN is empty`)
+    }
     if(!process.env.SLACK_WEBHOOK_URL){
       core.setFailed(`SLACK_WEBHOOK_URL is empty`)
     }
@@ -33,7 +33,7 @@ const main = async ()=>{
     
     //create message
     let message = extraMessage || ''
-    message += '\n' + messageCreator(messageType)
+    message += '\n' + await messageCreator(messageType)
     
     //send message
     await slackMessage(message, mention)
