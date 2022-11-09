@@ -22,7 +22,7 @@ const prMessageCreator = async ()=>{
   })).data
 
   //start
-  let msg = `:open_file_folder: *${github.context.repo.repo}*\n*${github.context.actor} 님에 의해 Pull request 가 Open 되었습니다.*`
+  let msg = `:open_file_folder: *${github.context.repo.repo}* :open_file_folder:\n\n*${github.context.actor} 님에 의해 Pull request 가 Open 되었습니다.*`
 
   //pr body content
   const content = prInfo.body
@@ -56,7 +56,7 @@ const prMessageCreator = async ()=>{
 
     msg += '\n\n*변경된 파일 목록 미리보기*'
     for(let file of prFiles){
-      msg += `\n- <${prInfo.html_url}/files#diff-${file.sha}|${file.status} ${file.filename}>`
+      msg += `\n<${prInfo.html_url}/files#diff-${file.sha}|[${file.status}] ${file.filename}>`
     }
 
     if(prInfo.changed_files > prFiles.length){
