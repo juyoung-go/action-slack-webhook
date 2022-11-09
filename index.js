@@ -3,9 +3,6 @@ const slackMessage = require('./slack/message')
 
 const {MESSAGE_TYPES, messageCreator} = require('./messages')
 
-console.log('MESSAGE_TYPES', MESSAGE_TYPES)
-console.log('messageCreator', messageCreator)
-
 const main = async ()=>{
 
   try{
