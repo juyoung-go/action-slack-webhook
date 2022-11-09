@@ -1,0 +1,15 @@
+name: 'slack-webhook-for-github'
+description: 'Send github event message to slack'
+inputs: 
+  messageType:
+    required: true
+  extraMessage:
+    required: false
+  mention:
+    required: false
+outputs:
+  sendResult: 
+    description: 'Message send result'
+runs: 
+  using: 'node16'
+  main: 'dist/index.js'
