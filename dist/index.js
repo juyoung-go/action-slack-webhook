@@ -21446,7 +21446,7 @@ const {MESSAGE_TYPES, messageCreator} = __nccwpck_require__(6132)
 console.log('MESSAGE_TYPES', MESSAGE_TYPES)
 console.log('messageCreator', messageCreator)
 
-(async ()=>{
+const main = async ()=>{
 
   try{
 
@@ -21485,7 +21485,9 @@ console.log('messageCreator', messageCreator)
     core.setFailed(error.message)
   }
 
-})()
+}
+
+main()
 
 })();
 

@@ -6,7 +6,7 @@ const {MESSAGE_TYPES, messageCreator} = require('./messages')
 console.log('MESSAGE_TYPES', MESSAGE_TYPES)
 console.log('messageCreator', messageCreator)
 
-(async ()=>{
+const main = async ()=>{
 
   try{
 
@@ -45,4 +45,6 @@ console.log('messageCreator', messageCreator)
     core.setFailed(error.message)
   }
 
-})()
+}
+
+main()
