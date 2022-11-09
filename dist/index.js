@@ -40,11 +40,15 @@ const prMessageCreator = async ()=>{
   })).data
 
   //start
-  let msg = `\n[*${github.context.repo.repo}*] *${github.context.actor}* 님에 의해 *Pull request* 가 *Open* 되었습니다.`
+  let msg = `*[${github.context.repo.repo}] ${github.context.actor} 님에 의해 Pull request 가 Open 되었습니다.*`
+
+  //pr body content
+  const content = prInfo.body
+  content && content.length > 0 && (msg += `\n\n${content}`)
 
   //pr link
-  msg += `\n\n${prInfo.html_url}`
-
+  msg += `\n\n<${prInfo.html_url}>`
+  
   return msg
 
 }
