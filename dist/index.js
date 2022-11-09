@@ -21184,8 +21184,13 @@ const section = (text)=>{
     }
   }
 }
+const divider = ()=>{
+  return {
+    type: "divider"
+  }
+}
 
-const message = async (markdownMessage, mention)=>{
+const message = async ({markdownMessage, mention, extraMessage})=>{
 
   const slack = new IncomingWebhook(process.env.SLACK_WEBHOOK_URL)
 
@@ -21207,6 +21212,12 @@ const message = async (markdownMessage, mention)=>{
 
       }
     }
+  }
+
+  //extraMessage
+  if(extraMessage){
+    blocks.push(section(extraMessage))
+    blocks.push(divider())
   }
 
   //main message
@@ -21479,11 +21490,10 @@ const main = async ()=>{
     }
     
     //create message
-    let message = extraMessage || ''
-    message += '\n' + await messageCreator(messageType)
+    let message = await messageCreator(messageType)
     
     //send message
-    await slackMessage(message, mention)
+    await slackMessage({message, mention, extraMessage})
   
     //set result
     core.setOutput('sendResult', 'OK')
