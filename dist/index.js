@@ -27,6 +27,11 @@ module.exports = {
 
 const github = __nccwpck_require__(985);
 
+const prefix = ['멋진','열정적인','조금은 의심스러운','화가 잔뜩난','행복한','배고픈','상태가 좋지못한','절대무적','바보같은','나이스한','개발자를 가장한']
+const randomPrefix = () => {
+  return prefix[Math.floor(Math.random() * prefix.length)]
+}
+
 const prMessageCreator = async ()=>{
   
   //octokit
@@ -49,7 +54,7 @@ const prMessageCreator = async ()=>{
   })).data
 
   //start
-  let msg = `:open_file_folder: *${github.context.repo.repo}* :open_file_folder:\n\n*${github.context.actor} 님에 의해 Pull request 가 Open 되었습니다.*`
+  let msg = `:open_file_folder: *${github.context.repo.repo}* :open_file_folder:\n\n:mailbox_with_mail: *${randomPrefix} ${github.context.actor} 님에 의해 Pull request 가 Open 되었습니다.*`
 
   //pr body content
   const content = prInfo.body
@@ -60,7 +65,7 @@ const prMessageCreator = async ()=>{
 
     msg += '\n\n*Commit 목록 미리보기*'
     for(let commit of prCommits){
-      msg += `\n- <${commit.html_url}|${commit.commit.message}>`
+      msg += `\n:black_small_square: <${commit.html_url}|${commit.commit.message}>`
     }
 
     if(prInfo.commits > prCommits.length){
@@ -83,7 +88,7 @@ const prMessageCreator = async ()=>{
 
     msg += '\n\n*변경된 파일 목록 미리보기*'
     for(let file of prFiles){
-      msg += `\n[${file.status}] <${prInfo.html_url}/files#diff-${file.sha}|${file.filename}>`
+      msg += `\n:black_small_square: [${file.status}] <${prInfo.html_url}/files#diff-${file.sha}|${file.filename}>`
     }
 
     if(prInfo.changed_files > prFiles.length){
@@ -93,7 +98,7 @@ const prMessageCreator = async ()=>{
   }
 
   //pr link
-  msg += `\n\n*PR Link*\n<${prInfo.html_url}>`
+  msg += `\n\n*PR Link*\n:black_small_square: <${prInfo.html_url}>`
   
   return msg
 
