@@ -54,7 +54,7 @@ const prMessageCreator = async ()=>{
   })).data
 
   //start
-  let msg = `:open_file_folder: *${github.context.repo.repo}* :open_file_folder:\n\n*${randomPrefix()} ${github.context.actor} 님에 의해 Pull request 가 Open 되었습니다.*`
+  let msg = `:open_file_folder: *${github.context.repo.repo}* :open_file_folder:\n\n*${randomPrefix()} ${prInfo.user.login} <${prInfo.user.avatar_url}|> 님에 의해 Pull request 가 Open 되었습니다.*`
 
   //pr body content
   const content = prInfo.body
