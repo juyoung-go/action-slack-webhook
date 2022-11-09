@@ -13,15 +13,11 @@ const prMessageCreator = async ()=>{
   })).data
 
   //start
-  let msg = `[*${github.context.repo.repo}*] *${github.context.actor}* 님에 의해 *Pull request* 가 *Open* 되었습니다.`
+  let msg = `\n[*${github.context.repo.repo}*] *${github.context.actor}* 님에 의해 *Pull request* 가 *Open* 되었습니다.`
 
   //pr link
-  msg += `\n\n> <${prInfo.html_url}|${prInfo.body || prInfo.html_url}>`
+  msg += `\n\n${prInfo.html_url}`
 
-  //pr comment
-  const comment = github.context.payload.comment
-  comment && comment.length > 0 && (msg += '```comment```')
-  
   return msg
 
 }
