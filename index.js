@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 const slackMessage = require('./slack/message')
 
-const MESSAGE_TYPES = ['pr'];
+const {MESSAGE_TYPES, messageCreator} = require('./messages')
 
 (async ()=>{
 
@@ -18,6 +18,9 @@ const MESSAGE_TYPES = ['pr'];
       return
     }
     
+    // if(!process.env.GITHUB_TOKEN){
+    //   core.setFailed(`GITHUB_TOKEN is empty`)
+    // }
     if(!process.env.SLACK_WEBHOOK_URL){
       core.setFailed(`SLACK_WEBHOOK_URL is empty`)
     }
@@ -26,7 +29,8 @@ const MESSAGE_TYPES = ['pr'];
     }
     
     //create message
-    const message = extraMessage || ''
+    let message = extraMessage || ''
+    message += '\n' + messageCreator(messageType)
     
     //send message
     await slackMessage(message, mention)
