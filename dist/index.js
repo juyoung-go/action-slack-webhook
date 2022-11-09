@@ -34,6 +34,8 @@ const prMessageCreator = async ()=>{
 
   //pr info
   const prInfo = (await octo.rest.pulls.get({
+    owner:github.context.issue.owner,
+    repo:github.context.issue.repo,
     pull_number:github.context.payload.pull_request.number
   })).data
 
