@@ -56,7 +56,7 @@ const prMessageCreator = async ()=>{
 
     msg += '\n\n*변경된 파일 목록 미리보기*'
     for(let file of prFiles){
-      msg += `\n<${prInfo.html_url}/files#diff-${file.sha}|[${file.status}] ${file.filename}>`
+      msg += `\n[${file.status}] <${prInfo.html_url}/files#diff-${file.sha}|${file.filename}>`
     }
 
     if(prInfo.changed_files > prFiles.length){
@@ -66,7 +66,7 @@ const prMessageCreator = async ()=>{
   }
 
   //pr link
-  msg += `\n\n<${prInfo.html_url}>`
+  msg += `\n\n*PR Link*\n<${prInfo.html_url}>`
   
   return msg
 
