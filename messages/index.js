@@ -5,7 +5,8 @@ const messageCreator = async (type)=>{
   if(type === 'pr'){
     return pr()
   }else{
-    throw new Error(`Invaild messageType ${type}`)
+    return '' //In this Case, Extra Messages Only
+    //throw new Error(`Invaild messageType ${type}`)
   }
 }
 
